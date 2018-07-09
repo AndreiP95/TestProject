@@ -1,2 +1,0 @@
-# TestProject
-Kotlin project
