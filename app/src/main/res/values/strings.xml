@@ -1,1 +1,4 @@
-<resources></resources>
+<resources>
+    <string name="random">My Random String</string>
+
+</resources>

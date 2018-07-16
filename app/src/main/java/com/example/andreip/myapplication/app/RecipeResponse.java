@@ -2,33 +2,48 @@ package com.example.andreip.myapplication.app;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class RecipeResponse {
-
-    private String title;
     @SerializedName("title")
-    private String version;
+    private String title;
     @SerializedName("version")
-    private String href;
+    private String version;
     @SerializedName("href")
-    private ArrayList<Recipe> recipes;
+    private String href;
     @SerializedName("results")
+    private ArrayList<Recipe> recipes;
 
-    private String image;
-    private int values;
 
-    public String getImage() {
-        return image;
+    public String getTitle() {
+        return title;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getValues() {
-        return this.values;
+    public void setHref(String href) {
+        this.href = href;
     }
 
-    public void setValues(int values) {
-        this.values = values;
+    public String getHref() {
+        return this.href;
+    }
+
+    public void setRecipes(ArrayList<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
+    public ArrayList<Recipe> getRecipes() {
+        return this.recipes;
+    }
+
+    public String getVersion() {
+        return this.version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }
