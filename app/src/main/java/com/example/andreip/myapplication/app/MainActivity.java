@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static RecyclerView recyclerView;
+    private  RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(new MyAdapter());
 
 
-        RetroFitAdapter retroFitAdapter = new RetroFitAdapter();
+        RetroFitAdapter retroFitAdapter = new RetroFitAdapter(this);
         retroFitAdapter.getRecipes();
 
     }
 
-    public static RecyclerView getRecyclerView() {
+    public  RecyclerView getRecyclerView() {
         return recyclerView;
     }
 
