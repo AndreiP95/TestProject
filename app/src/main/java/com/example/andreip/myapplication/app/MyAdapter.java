@@ -3,6 +3,7 @@ package com.example.andreip.myapplication.app;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +42,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         Recipe recipe = recipeArrayList.get(position);
-        holder.title.setText(recipe.getTitle());
+        holder.title.setText(recipe.getTitle().replaceAll("\n", ""));
         holder.ingredients.setText(recipe.getIngredients());
+
+        Log.d("TITLE + INGREDIENTS", recipe.getTitle() + " " + recipe.getIngredients());
+
+        if (recipe.getThumbnail() == null || recipe.getThumbnail().equalsIgnoreCase(""))
+            return;
 
         Picasso.get()
                 .load(recipe.getThumbnail())
