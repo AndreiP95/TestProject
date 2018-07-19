@@ -31,14 +31,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         public ViewHolder(View v) {
             super(v);
-            ingredients = (TextView) v.findViewById(R.id.TVIngredients);
-            title = (TextView) v.findViewById(R.id.TVTitle);
-            imageRecipe = (ImageView) v.findViewById(R.id.IVRecept);
+            ingredients = v.findViewById(R.id.TVIngredients);
+            title = v.findViewById(R.id.TVTitle);
+            imageRecipe = v.findViewById(R.id.IVRecept);
         }
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         Recipe recipe = recipeArrayList.get(position);

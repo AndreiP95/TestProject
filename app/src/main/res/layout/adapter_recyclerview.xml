@@ -15,8 +15,8 @@
         android:layout_marginStart="10dp"
         android:hint="@string/reteta"
         android:text="@string/random"
-        android:textColor="#000000"
-        android:textSize="22dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/titleSize"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/RLRecept"
         app:layout_constraintLeft_toLeftOf="@+id/RLRecept" />
@@ -31,8 +31,8 @@
         android:layout_marginTop="10dp"
         android:hint="@string/reteta"
         android:text="@string/random"
-        android:textColor="#000000"
-        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize"
         app:layout_constraintLeft_toRightOf="@+id/RLRecept"
         app:layout_constraintTop_toBottomOf="@+id/TVTitle" />
 
@@ -60,6 +60,6 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_below="@+id/TVIngredients"
-        android:background="#888888" />
+        android:background="@color/gray" />
 
 </android.support.constraint.ConstraintLayout>
