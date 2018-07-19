@@ -1,6 +1,7 @@
 package com.example.andreip.myapplication.app;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,14 @@ public class RetroFitAdapter {
         this.recipeArrayList = recipeArrayList;
     }
 
+    public void filterRecipeArrayList(ArrayList<Recipe> recipeArrayList, String text) {
+        for (Recipe recipe : recipeArrayList)
+            if (!recipe.getTitle().contains(text)) {
+                recipeArrayList.remove(recipe);
+            }
+        setRecipeArrayList(recipeArrayList);
+    }
+
     public static OkHttpClient getClient() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -49,7 +58,7 @@ public class RetroFitAdapter {
                 .build();
     }
 
-    public void getRecipes() {
+    public void getRecipes(final String s) {
         initializeRetroFit();
         List<String> veggies = new ArrayList<>();
         veggies.add("onions");
@@ -62,8 +71,14 @@ public class RetroFitAdapter {
             public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
+                        if (response.body().getRecipes().equals(null))
+                            Toast.makeText(mainActivity.getApplicationContext(), "Empty Response", Toast.LENGTH_SHORT);
                         Log.d("TITLE", response.body().getRecipes().get(0).getIngredients());
                         setRecipeArrayList(response.body().getRecipes());
+
+                        if (!s.equalsIgnoreCase(""))
+                            filterRecipeArrayList(getRecipeArrayList(), s);
+
                         ((MyAdapter) mainActivity.getRecyclerView().getAdapter())
                                 .addAllItems(getRecipeArrayList());
                     }
