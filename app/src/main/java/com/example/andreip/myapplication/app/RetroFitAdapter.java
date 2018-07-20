@@ -32,12 +32,17 @@ public class RetroFitAdapter {
         this.recipeArrayList = recipeArrayList;
     }
 
-    public void filterRecipeArrayList(ArrayList<Recipe> recipeArrayList, String text) {
+    public void filterRecipeArrayList(MyAdapter adapter, ArrayList<Recipe> recipeArrayList, String text) {
+
+        ArrayList<Recipe> filterRecipeList = new ArrayList<>();
+
         for (Recipe recipe : recipeArrayList)
-            if (!recipe.getTitle().contains(text)) {
-                recipeArrayList.remove(recipe);
+            if (recipe.getTitle().contains(text)) {
+                filterRecipeList.add(recipe);
             }
-        setRecipeArrayList(recipeArrayList);
+
+        setRecipeArrayList(filterRecipeList);
+        adapter.refreshAllItems(filterRecipeList);
     }
 
     public static OkHttpClient getClient() {
@@ -58,6 +63,7 @@ public class RetroFitAdapter {
                 .build();
     }
 
+
     public void getRecipes(final String s) {
         initializeRetroFit();
         List<String> veggies = new ArrayList<>();
@@ -77,10 +83,10 @@ public class RetroFitAdapter {
                         setRecipeArrayList(response.body().getRecipes());
 
                         if (!s.equalsIgnoreCase(""))
-                            filterRecipeArrayList(getRecipeArrayList(), s);
+                            filterRecipeArrayList(((MyAdapter) mainActivity.getRecyclerView().getAdapter()), getRecipeArrayList(), s);
+                        else
+                            ((MyAdapter) mainActivity.getRecyclerView().getAdapter()).addAllItems(getRecipeArrayList());
 
-                        ((MyAdapter) mainActivity.getRecyclerView().getAdapter())
-                                .addAllItems(getRecipeArrayList());
                     }
                 } else {
                     Log.d("FAIL", response.code() + " " + response.message());

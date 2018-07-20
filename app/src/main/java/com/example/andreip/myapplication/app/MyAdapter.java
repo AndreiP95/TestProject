@@ -18,6 +18,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private ArrayList<Recipe> recipeArrayList;
 
+
+    public void refreshAllItems(ArrayList<Recipe> items)
+    {
+        recipeArrayList.clear();
+        addAllItems(items);
+
+    }
+
     public void addAllItems(ArrayList<Recipe> items) {
         recipeArrayList.addAll(items);
         notifyDataSetChanged();
