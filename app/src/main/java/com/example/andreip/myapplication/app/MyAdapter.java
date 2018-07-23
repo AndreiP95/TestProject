@@ -33,6 +33,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         recipeArrayList.clear();
         for (RecipeDb recipeDb : recipeDbList)
             recipeArrayList.add(new Recipe(recipeDb));
+
+        notifyDataSetChanged();
     }
 
     public void addAllItems(List<Recipe> items) {

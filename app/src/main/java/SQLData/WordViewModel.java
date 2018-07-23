@@ -22,7 +22,7 @@ public class WordViewModel extends AndroidViewModel {
         return mAllWords;
     }
 
-    public void insert(RecipeDb recipe) {
-        mRepository.insert(recipe);
-    }
+   // public void insert(RecipeDb recipe) {
+  //      mRepository.insert(recipe);
+  //  }
 }

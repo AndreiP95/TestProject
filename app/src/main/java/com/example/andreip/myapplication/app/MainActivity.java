@@ -1,25 +1,34 @@
 package com.example.andreip.myapplication.app;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 
+import java.util.List;
+
+import SQLData.RecipeDb;
 import SQLData.WordRepository;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
     private EditText editText;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RetroFitAdapter retroFitAdapter;
     private WordRepository wordRepository;
+    private LiveData<List<RecipeDb>> mLiveData;
 
 
     @Override
@@ -33,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.RVRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MyAdapter());
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideSoftKeyboard();
+                return false;
+            }
+        });
 
         retroFitAdapter = new RetroFitAdapter(this);
 
@@ -66,6 +82,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        mLiveData = wordRepository.getAllWords();
+        mLiveData.observeForever(new Observer<List<RecipeDb>>() {
+            @Override
+            public void onChanged(@Nullable List<RecipeDb> recipeDbs) {
+                if (mLiveData.getValue().equals(null)) {
+                    retroFitAdapter.getRecipes("", wordRepository);
+                } else {
+                    ((MyAdapter) recyclerView.getAdapter()).setDbArrayList(mLiveData.getValue());
+                    Log.d("DEBUG_DB", mLiveData.getValue().size() + " ");
+                }
+            }
+        });
+
     }
 
     public void refreshData(final String searchText) {
