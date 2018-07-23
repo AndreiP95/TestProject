@@ -13,20 +13,29 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import SQLData.RecipeDb;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private ArrayList<Recipe> recipeArrayList;
 
 
-    public void refreshAllItems(ArrayList<Recipe> items)
-    {
+    public void refreshAllItems(ArrayList<Recipe> items) {
         recipeArrayList.clear();
         addAllItems(items);
 
     }
 
-    public void addAllItems(ArrayList<Recipe> items) {
+    public void setDbArrayList(List<RecipeDb> recipeDbList) {
+
+        recipeArrayList.clear();
+        for (RecipeDb recipeDb : recipeDbList)
+            recipeArrayList.add(new Recipe(recipeDb));
+    }
+
+    public void addAllItems(List<Recipe> items) {
         recipeArrayList.addAll(items);
         notifyDataSetChanged();
     }

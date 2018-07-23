@@ -10,15 +10,19 @@ public class WordViewModel extends AndroidViewModel {
 
     private WordRepository mRepository;
 
-    private LiveData<List<Word>> mAllWords;
+    private LiveData<List<RecipeDb>> mAllWords;
 
-    public WordViewModel (Application application) {
+    public WordViewModel(Application application) {
         super(application);
         mRepository = new WordRepository(application);
         mAllWords = mRepository.getAllWords();
     }
 
-    LiveData<List<Word>> getAllWords() { return mAllWords; }
+    public LiveData<List<RecipeDb>> getAllWords() {
+        return mAllWords;
+    }
 
-    public void insert(Word word) { mRepository.insert(word); }
+    public void insert(RecipeDb recipe) {
+        mRepository.insert(recipe);
+    }
 }

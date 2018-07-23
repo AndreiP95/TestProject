@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import SQLData.WordRepository;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText editText;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RetroFitAdapter retroFitAdapter;
+    private WordRepository wordRepository;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         retroFitAdapter = new RetroFitAdapter(this);
 
-        retroFitAdapter.getRecipes("");
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        wordRepository = new WordRepository(getApplication());
+        retroFitAdapter.getRecipes("", wordRepository);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -51,26 +56,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 2)
-                    retroFitAdapter.getRecipes(s.toString());
+                    retroFitAdapter.getRecipes(s.toString(), wordRepository);
                 else
-                    retroFitAdapter.getRecipes("");
+                    retroFitAdapter.getRecipes("", wordRepository);
             }
 
-        @Override
-        public void afterTextChanged (Editable s){
+            @Override
+            public void afterTextChanged(Editable s) {
 
-        }
-    });
-}
+            }
+        });
+    }
 
     public void refreshData(final String searchText) {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
                 if (searchText.length() > 2)
-                    retroFitAdapter.getRecipes(searchText);
+                    retroFitAdapter.getRecipes(searchText, wordRepository);
                 else
-                    retroFitAdapter.getRecipes("");
+                    retroFitAdapter.getRecipes("", wordRepository);
 
                 if (swipeRefreshLayout.isRefreshing())
                     swipeRefreshLayout.setRefreshing(false);

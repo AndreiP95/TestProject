@@ -2,7 +2,7 @@ package com.example.andreip.myapplication.app;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
+import SQLData.RecipeDb;
 
 public class Recipe {
 
@@ -14,6 +14,13 @@ public class Recipe {
     private String ingredients;
     @SerializedName("thumbnail")
     private String thumbnail;
+
+    public Recipe(RecipeDb recipeDb) {
+        this.title = recipeDb.getTitle();
+        this.href = recipeDb.getHref();
+        this.ingredients = recipeDb.getIngredients();
+        this.thumbnail = recipeDb.getThumbnail();
+    }
 
     public String getTitle() {
         return title;

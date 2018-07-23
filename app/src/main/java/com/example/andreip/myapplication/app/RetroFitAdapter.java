@@ -1,11 +1,11 @@
 package com.example.andreip.myapplication.app;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import SQLData.WordRepository;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -64,7 +64,7 @@ public class RetroFitAdapter {
     }
 
 
-    public void getRecipes(final String s) {
+    public void getRecipes(final String s, final WordRepository wordRepository) {
         initializeRetroFit();
         List<String> veggies = new ArrayList<>();
         veggies.add("onions");
@@ -77,8 +77,6 @@ public class RetroFitAdapter {
             public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        if (response.body().getRecipes().equals(null))
-                            Toast.makeText(mainActivity.getApplicationContext(), "Empty Response", Toast.LENGTH_SHORT);
                         Log.d("TITLE", response.body().getRecipes().get(0).getIngredients());
                         setRecipeArrayList(response.body().getRecipes());
 
@@ -87,6 +85,8 @@ public class RetroFitAdapter {
                         else
                             ((MyAdapter) mainActivity.getRecyclerView().getAdapter()).addAllItems(getRecipeArrayList());
 
+                        wordRepository.insertAllRecipes(recipeArrayList);
+                        Log.d("TITLE_DB", wordRepository.getAllWords() + " ");
                     }
                 } else {
                     Log.d("FAIL", response.code() + " " + response.message());
