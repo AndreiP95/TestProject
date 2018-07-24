@@ -4,6 +4,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
+
+import com.example.andreip.myapplication.app.Recipe;
 
 import java.util.List;
 
@@ -24,4 +27,8 @@ public interface DataAccessWord {
     @Query("DELETE FROM recipe_table WHERE id = :id")
     void delete(int id);
     //MutableLiveData + Update
+
+    @Update
+    void update(Recipe recipe);
+
 }
