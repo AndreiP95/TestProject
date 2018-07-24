@@ -37,7 +37,14 @@ public class WordRepository {
         insert(recipeDbArrayList);
     }
 
+    @SuppressWarnings("unchecked")
     public void insert(List<RecipeDb> recipe) {
+
+        if (recipe == null) {
+            Log.d("ERROR", "No data to insert ");
+            return;
+        }
+
         new insertAsyncTask(mWordDao).execute(recipe);
     }
 
@@ -51,6 +58,7 @@ public class WordRepository {
 
         @Override
         protected Void doInBackground(final List<RecipeDb>... params) {
+
             mAsyncTaskDao.deleteAll();
             for (RecipeDb recipeDb : params[0])
                 mAsyncTaskDao.insert(recipeDb);
