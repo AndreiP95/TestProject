@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import SQLData.RecipeDb;
 import SQLData.WordRepository;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -25,6 +26,14 @@ public class RetroFitAdapter {
     }
 
     public ArrayList<Recipe> getRecipeArrayList() {
+        return recipeArrayList;
+    }
+
+    public ArrayList<Recipe> toRecipe(List<RecipeDb> recipeDbList) {
+        ArrayList<Recipe> recipeArrayList = new ArrayList<>();
+        for (RecipeDb recipeDb : recipeDbList)
+            recipeArrayList.add(new Recipe(recipeDb));
+
         return recipeArrayList;
     }
 
@@ -85,17 +94,32 @@ public class RetroFitAdapter {
                         else
                             ((MyAdapter) mainActivity.getRecyclerView().getAdapter()).addAllItems(getRecipeArrayList());
 
-                        wordRepository.insertAllRecipes(recipeArrayList);
                         Log.d("TITLE_DB", wordRepository.getAllWords() + " ");
+
+                        wordRepository.insertAllRecipes(getRecipeArrayList());
                     }
                 } else {
+                    setRecipeArrayList(toRecipe(wordRepository.getAllWords().getValue()));
+
                     Log.d("FAIL", response.code() + " " + response.message());
+
+                    if (!s.equalsIgnoreCase(""))
+                        filterRecipeArrayList(((MyAdapter) mainActivity.getRecyclerView().getAdapter()), getRecipeArrayList(), s);
+                    else
+                        ((MyAdapter) mainActivity.getRecyclerView().getAdapter()).addAllItems(getRecipeArrayList());
                 }
             }
 
             @Override
             public void onFailure(Call<RecipeResponse> call, Throwable t) {
+
+                setRecipeArrayList(toRecipe(wordRepository.getAllWords().getValue()));
                 Log.e("FAIL", t.getMessage() + " ", t);
+
+                if (!s.equalsIgnoreCase(""))
+                    filterRecipeArrayList(((MyAdapter) mainActivity.getRecyclerView().getAdapter()), getRecipeArrayList(), s);
+                else
+                    ((MyAdapter) mainActivity.getRecyclerView().getAdapter()).addAllItems(getRecipeArrayList());
             }
         });
 

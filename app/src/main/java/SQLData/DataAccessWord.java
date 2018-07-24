@@ -18,7 +18,7 @@ public interface DataAccessWord {
     @Query("DELETE FROM recipe_table")
     void deleteAll();
 
-    @Query("SELECT * from recipe_table ORDER BY title ASC")
+    @Query("SELECT * from recipe_table")
     LiveData<List<RecipeDb>> getAllWords();
 
     @Query("DELETE FROM recipe_table WHERE id = :id")

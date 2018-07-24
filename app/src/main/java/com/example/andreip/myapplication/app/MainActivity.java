@@ -61,8 +61,28 @@ public class MainActivity extends BaseActivity {
         });
 
         wordRepository = new WordRepository(getApplication());
+
+        mLiveData = wordRepository.getAllWords();
+        mLiveData.observeForever(new Observer<List<RecipeDb>>() {
+            @Override
+            public void onChanged(@Nullable List<RecipeDb> recipeDbs) {
+                if (mLiveData.getValue().equals(null)) {
+                    retroFitAdapter.getRecipes("", wordRepository);
+                } else {
+                    ((MyAdapter) recyclerView.getAdapter()).setDbArrayList(mLiveData.getValue());
+                    Log.d("DEBUG_DB", mLiveData.getValue().size() + " ");
+                }
+            }
+        });
+
         retroFitAdapter.getRecipes("", wordRepository);
 
+    /*
+        if (isNetworkAvailable())
+        else {
+            wordRepository.insert(wordRepository.getAllWords().getValue());
+        }
+*/
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -80,18 +100,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-            }
-        });
-        mLiveData = wordRepository.getAllWords();
-        mLiveData.observeForever(new Observer<List<RecipeDb>>() {
-            @Override
-            public void onChanged(@Nullable List<RecipeDb> recipeDbs) {
-                if (mLiveData.getValue().equals(null)) {
-                    retroFitAdapter.getRecipes("", wordRepository);
-                } else {
-                    ((MyAdapter) recyclerView.getAdapter()).setDbArrayList(mLiveData.getValue());
-                    Log.d("DEBUG_DB", mLiveData.getValue().size() + " ");
-                }
             }
         });
 
