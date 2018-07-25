@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/CLayoutRecyclerView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="#ffff7f">
@@ -8,11 +9,10 @@
 
     <TextView
         android:id="@+id/TVTitle"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/title_default_width_200"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:layout_marginStart="@dimen/margin_10dp"
         android:hint="@string/reteta"
         android:text="@string/random"
         android:textColor="@color/black"
@@ -23,12 +23,11 @@
 
     <TextView
         android:id="@+id/TVIngredients"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/title_default_width_200"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/margin_20dp"
+        android:layout_marginStart="@dimen/margin_20dp"
+        android:layout_marginTop="@dimen/margin_10dp"
         android:hint="@string/reteta"
         android:text="@string/random"
         android:textColor="@color/black"
@@ -40,25 +39,25 @@
         android:id="@+id/RLRecept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:background="#000"
+        android:layout_marginStart="@dimen/margin_10dp"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/CLayoutRecyclerView"
         app:layout_constraintTop_toTopOf="parent">
 
 
         <ImageView
             android:id="@+id/IVRecept"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="3dp"
-            android:elevation="2dp" />
+            android:contentDescription="@string/reteta"
+            android:layout_width="@dimen/image_side_60"
+            android:layout_height="@dimen/image_side_60"
+            android:layout_margin="@dimen/margin_3dp" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="@dimen/line_delimitation_3"
         android:layout_below="@+id/TVIngredients"
         android:background="@color/gray" />
 

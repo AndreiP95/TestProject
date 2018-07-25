@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="titleSize">22dp</dimen>
-    <dimen name="textSize">18dp</dimen>
+    <dimen name="titleSize">22sp</dimen>
+    <dimen name="textSize">18sp</dimen>
+    <dimen name="title_default_width_200">200dp</dimen>
+    <dimen name="search_box_height_30">30dp</dimen>
 
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_15dp">15dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="margin_3dp">3dp</dimen>
+
+    <dimen name="image_side_60">60dp</dimen>
+    <dimen name="line_delimitation_3">3dp</dimen>
 
 </resources>
