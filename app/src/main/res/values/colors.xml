@@ -4,6 +4,7 @@
     <color name="black">#000000</color>
     <color name="gray">#888888</color>
     <color name="light_gray">#eeeeee</color>
+    <color name="yellow">#ffff7f</color>
 
 
 </resources>
