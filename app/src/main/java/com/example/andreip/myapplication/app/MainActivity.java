@@ -77,12 +77,8 @@ public class MainActivity extends BaseActivity {
 
         retroFitAdapter.getRecipes("", wordRepository);
 
-    /*
-        if (isNetworkAvailable())
-        else {
-            wordRepository.insert(wordRepository.getAllWords().getValue());
-        }
-*/
+
+
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
