@@ -1,11 +1,8 @@
 package com.example.andreip.myapplication.app
 
-import android.util.Log
-
-import java.util.ArrayList
-
 import SQLData.RecipeDb
 import SQLData.WordRepository
+import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -13,13 +10,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class RetroFitAdapter(private val mainActivity: MainActivity) {
 
     private var retrofit: Retrofit? = null
-    var recipeArrayList: List<Recipe> = ArrayList<Recipe> ()
+    var recipeArrayList: List<Recipe> = ArrayList<Recipe>()
 
-    fun toRecipe(recipeDbList: List<RecipeDb>): ArrayList<Recipe>{
+    fun toRecipe(recipeDbList: List<RecipeDb>): ArrayList<Recipe> {
         var recipeArrayList = ArrayList<Recipe>()
         for (recipeDb in recipeDbList)
             recipeArrayList.add(Recipe(recipeDb))
@@ -61,13 +59,13 @@ class RetroFitAdapter(private val mainActivity: MainActivity) {
             override fun onResponse(call: Call<RecipeResponse>, response: Response<RecipeResponse>) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                        Log.d("TITLE", response.body()!!.recipes!![0].getIngredients())
+                        Log.d("TITLE", response.body()!!.recipes[0].getIngredients())
                         recipeArrayList = response.body()!!.recipes
 
                         if (!s.equals("", ignoreCase = true))
-                            filterRecipeArrayList(mainActivity.recyclerView.adapter as MyAdapter, recipeArrayList, s)
+                            filterRecipeArrayList(mainActivity.recyclerView?.adapter as MyAdapter, recipeArrayList, s)
                         else
-                            (mainActivity.recyclerView.adapter as MyAdapter).addAllItems(recipeArrayList)
+                            (mainActivity.recyclerView?.adapter as MyAdapter).addAllItems(recipeArrayList)
 
                         Log.d("TITLE_DB", wordRepository.getValueAllWords().toString() + " ")
 
@@ -78,9 +76,9 @@ class RetroFitAdapter(private val mainActivity: MainActivity) {
 
 
                     if (!s.equals("", ignoreCase = true))
-                        filterRecipeArrayList(mainActivity.recyclerView.adapter as MyAdapter, recipeArrayList, s)
+                        filterRecipeArrayList(mainActivity.recyclerView?.adapter as MyAdapter, recipeArrayList, s)
                     else
-                        (mainActivity.recyclerView.adapter as MyAdapter).addAllItems(recipeArrayList)
+                        (mainActivity.recyclerView?.adapter as MyAdapter).addAllItems(recipeArrayList)
                 }
             }
 
@@ -90,9 +88,9 @@ class RetroFitAdapter(private val mainActivity: MainActivity) {
                 Log.e("FAIL", t.message + " ", t)
 
                 if (!s.equals("", ignoreCase = true))
-                    filterRecipeArrayList(mainActivity.recyclerView.adapter as MyAdapter, recipeArrayList, s)
+                    filterRecipeArrayList(mainActivity.recyclerView?.adapter as MyAdapter, recipeArrayList, s)
                 else
-                    (mainActivity.recyclerView.adapter as MyAdapter).addAllItems(recipeArrayList)
+                    (mainActivity.recyclerView?.adapter as MyAdapter).addAllItems(recipeArrayList)
             }
         })
 
